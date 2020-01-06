@@ -1,0 +1,71 @@
+---
+id: raspberrypi-clustering-instructions
+summary: Create a raspberry pi cluser using microk8s
+categories: clusters
+tags: kubernetes, beginner, multipass, container, microk8s
+difficulty: 3
+status: draft
+published: 2019-09-13
+author: Ammar Naqvi <ammar.naqvi@canonical.com>, Rhys Davies <rhys.davies@canonical.com>
+feedback_url: https://github.com/ubuntu/microk8s/issues/
+
+---
+
+Canonical is dedicated to enhancing the way we build and deliver technology through our continued investment in innovation and the open-source community. Over the past year, we’ve worked hard to realize the next phase of scaling and deployments on Kubernetes; we introduced [MicroK8s][microk8s], the lightweight, fast, powerful Kubernetes up in 60 seconds.
+
+
+We’ve heard from our users, partners, and customers and today, we’re pleased and excited to announce multi-node clustering in MicroK8s. You can now join multiple deployments to form a cluster. Welcome to simple, enterprise-grade Kubernetes! 
+
+# Test-Drive Time
+
+A preview release is available for you to test and give us your feedback. Lets set up the MicroK8s cluster.
+On two or more machines install MicroK8s from the 1.15/edge/clustering channel:
+
+```bash
+sudo snap install microk8s --classic --channel=1.15/edge/clustering
+```
+
+One of these machines need to be assigned as the master, hosting the control plane. On the master machine, run the following command for each node you want to add:
+
+```bash
+sudo microk8s.add-node
+```
+
+The microk8s.add-node will generate a connection string in the form of <master_ip>:<port>/<token> and will prompt you to use the microk8s.join command from the node you need to add to the cluster. 
+A join command instructing a node to form a cluster with the master will look like:
+
+```bash
+microk8s.join 10.55.60.14:25000/JHpbBYMlevZSAMnmjMHmFwanrOYCWZLu
+```
+
+You should be able to see the new node in a few seconds on the master. Run the following command:
+
+```bash
+microk8s.kubectl get no
+```
+
+And, you have successfully joined the node to the cluster! Repeat this microk8s.add-node and microk8s.join steps for each node you are adding.
+ 
+To remove a node, run the following command on the master:
+
+```bash
+sudo microk8s.remove <node-name>
+```
+
+Alternatively,  on the slave node you can run:
+
+```bash
+sudo microk8s.leave
+```
+
+# What’s next
+
+The opportunities for innovation are endless and we can’t wait to explore what you come up with! For feedback, bug reports or contributing, reach out on [Github][github], chat with us on the [Kubernetes Slack][k8s-slack], in the #microk8s channel, [Kubernetes Forum][k8s-forum] or tag us [@canonical][canonical-twitter], [@ubuntu][ubuntu-twitter] on Twitter (#MicroK8s). We are excited to hear your feedback!
+
+<!-- LINKS -->
+[k8s-forum]: https://discuss.kubernetes.io/tags/microk8s
+[microk8s]: https://microk8s.io/
+[k8s-slack]:https://slack.kubernetes.io/
+[github]:https://github.com/ubuntu/microk8s
+[ubuntu-twitter]: https://twitter.com/Ubuntu
+[canonical-twitter]: https://twitter.com/canonical
