@@ -2,7 +2,7 @@
 id: raspberrypi-clustering-instructions
 summary: Create a raspberry pi cluser using microk8s
 categories: clusters
-tags: kubernetes, beginner, multipass, container, microk8s
+tags: kubernetes, multipass, container, microk8s, cluster
 difficulty: 3
 status: draft
 published: 2019-09-13
