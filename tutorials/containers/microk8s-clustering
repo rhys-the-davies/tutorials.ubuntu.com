@@ -52,7 +52,7 @@ To remove a node, run the following command on the master:
 sudo microk8s.remove <node-name>
 ```
 
-Alternatively,  on the slave node you can run:
+Alternatively, on the slave node you can run:
 
 ```bash
 sudo microk8s.leave
