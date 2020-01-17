@@ -91,7 +91,7 @@ Duration: 1:00
 You have successfully joined the node to the cluster! Repeat this microk8s.add-node and microk8s.join steps for each node you are adding.
  
 
-# What’s next
+## What’s next
 
 The opportunities for innovation are endless and we can’t wait to explore what you come up with! For feedback, bug reports or contributing, reach out on [Github][github], chat with us on the [Kubernetes Slack][k8s-slack], in the #microk8s channel, [Kubernetes Forum][k8s-forum] or tag us [@canonical][canonical-twitter], [@ubuntu][ubuntu-twitter] on Twitter (#MicroK8s). We are excited to hear your feedback!
 
