@@ -1,25 +1,45 @@
 ---
-id: raspberrypi-clustering-instructions
+id: raspberry-pi-microk8s-instructions
 summary: Create a raspberry pi cluser using microk8s
-categories: clusters
+categories: iot
 tags: kubernetes, multipass, container, microk8s, cluster
 difficulty: 3
 status: draft
-published: 2019-09-13
+published: 2020-01-20
 author: Ammar Naqvi <ammar.naqvi@canonical.com>, Rhys Davies <rhys.davies@canonical.com>
 feedback_url: https://github.com/ubuntu/microk8s/issues/
 
 ---
+# How to bild a Raspberry Pi cluster using microk8s
 
-Canonical is dedicated to enhancing the way we build and deliver technology through our continued investment in innovation and the open-source community. Over the past year, we’ve worked hard to realize the next phase of scaling and deployments on Kubernetes; we introduced [MicroK8s][microk8s], the lightweight, fast, powerful Kubernetes up in 60 seconds.
+##Overview
+Duration: 1:00
+
+This tutorial will be a brief walk through of the process of getting [MicroK8s][microk8s] up and running on Raspberry Pis for all your clustering needs. [MicroK8s][microk8s] is a light weight, fast, enterprise-grade Kubernetes! So whether you're new to Kubernetes or a legacy user, [MicroK8s][microk8s] will help you save time and space on any embedded device or IoT projects. 
+
+By the end of this tutorial we hope you will be able to now join multiple deployments of [MicroK8s][microk8s] to form a cluster.
+
+### What you'll need
+
+- Ubuntu Desktop 16.04 or above
+- 2 Raspberry Pi boards (2 is the minimum, you can use as many as you like)
+- 2 micro SD cards (You need as many micro SD cards as you have Raspberry Pis)
+- 2 micro-USB power cables (One per Raspberry Pi)
+- 1 2-port USB power-supply (You need as many ports as you have boards)
+- Some basic command-line knowledge
+
+You will also need all of the Pis to be on the same network, and with a terminal windows ready to connect to each through SSH.
 
 
-We’ve heard from our users, partners, and customers and today, we’re pleased and excited to announce multi-node clustering in MicroK8s. You can now join multiple deployments to form a cluster. Welcome to simple, enterprise-grade Kubernetes! 
+## Setting up the Pis
 
-# Test-Drive Time
 
-A preview release is available for you to test and give us your feedback. Lets set up the MicroK8s cluster.
-On two or more machines install MicroK8s from the 1.15/edge/clustering channel:
+
+
+## Setting up the cluster
+Duration 2:00
+
+On two or more machines install MicroK8s from the 1.15/edge/clustering channel like this:
 
 ```bash
 sudo snap install microk8s --classic --channel=1.15/edge/clustering
@@ -31,7 +51,13 @@ One of these machines need to be assigned as the master, hosting the control pla
 sudo microk8s.add-node
 ```
 
-The microk8s.add-node will generate a connection string in the form of <master_ip>:<port>/<token> and will prompt you to use the microk8s.join command from the node you need to add to the cluster. 
+The microk8s.add-node will generate a connection string in the form of <master_ip>:<port>/<token> and will prompt you to use the microk8s.
+
+##Joining the cluster
+Duration: 2:00
+
+Now you need to use the join command from the node you want to add to the cluster. 
+
 A join command instructing a node to form a cluster with the master will look like:
 
 ```bash
@@ -41,11 +67,12 @@ microk8s.join 10.55.60.14:25000/JHpbBYMlevZSAMnmjMHmFwanrOYCWZLu
 You should be able to see the new node in a few seconds on the master. Run the following command:
 
 ```bash
-microk8s.kubectl get no
+microk8s.kubectl get node
 ```
 
-And, you have successfully joined the node to the cluster! Repeat this microk8s.add-node and microk8s.join steps for each node you are adding.
- 
+## Removing nodes
+Duration: 1:00 
+
 To remove a node, run the following command on the master:
 
 ```bash
@@ -57,6 +84,12 @@ Alternatively, on the slave node you can run:
 ```bash
 sudo microk8s.leave
 ```
+
+##That's it!
+Duration: 1:00
+
+You have successfully joined the node to the cluster! Repeat this microk8s.add-node and microk8s.join steps for each node you are adding.
+ 
 
 # What’s next
 
